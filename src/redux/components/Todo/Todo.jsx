@@ -1,8 +1,8 @@
-import React from "react";
-import { useDispatch } from "react-redux";
-import HeightBox from "../common/HeightBox";
-import { removeTodo, switchTodo } from "../../modules/todos";
-import { useNavigate } from "react-router-dom";
+import React from 'react';
+import { useDispatch } from 'react-redux';
+import HeightBox from '../common/HeightBox';
+import { __deleteTodoThunk, __switchTodoThunk } from '../../modules/todos';
+import { useNavigate } from 'react-router-dom';
 import {
   StyledDiv,
   StyledTitle,
@@ -11,7 +11,7 @@ import {
   FlexButtonBox,
   LinkedP,
   FlexTitleBox,
-} from "./styles";
+} from './styles';
 
 /**
  * 컴포넌트 개요 : 메인 > TODOLIST > TODO. 할 일의 단위 컴포넌트
@@ -28,11 +28,14 @@ function Todo({ todo, isActive }) {
   const navigate = useNavigate();
 
   // 완료, 취소를 handling하는 함수
-  const handleSwitchButton = () => dispatch(switchTodo(todo.id));
+  const handleSwitchButton = () => {
+    const switchTOdo = { ...todo, isDone: !todo.isDone };
+    dispatch(__switchTodoThunk(switchTOdo));
+  };
 
   // [삭제] 버튼 선택 시 호출되는 함수(user의 confirmation 필요)
   const handleRemoveButton = () => {
-    if (window.confirm(CONFIRM_MESSAGE)) dispatch(removeTodo(todo.id));
+    if (window.confirm(CONFIRM_MESSAGE)) dispatch(__deleteTodoThunk(todo.id));
   };
 
   // [상세보기]를 선택하는 경우 이동하는 함수
@@ -51,7 +54,7 @@ function Todo({ todo, isActive }) {
       <HeightBox height={20} />
       <FlexButtonBox>
         <TodoButton onClick={handleSwitchButton}>
-          {isActive ? "완료" : "취소"}
+          {isActive ? '완료' : '취소'}
         </TodoButton>
         <TodoButton onClick={handleRemoveButton}>삭제</TodoButton>
       </FlexButtonBox>

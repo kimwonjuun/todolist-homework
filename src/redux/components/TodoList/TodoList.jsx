@@ -1,8 +1,8 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { StyledDiv, StyledTodoListHeader, StyledTodoListBox } from "./styles";
-import Todo from "../Todo";
-import { __getTodos } from "../../modules/todos";
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { StyledDiv, StyledTodoListHeader, StyledTodoListBox } from './styles';
+import Todo from '../Todo';
+import { __getTodosThunk } from '../../modules/todos';
 
 /**
  * 컴포넌트 개요 : 메인 > TODOLIST. 할 일의 목록을 가지고 있는 컴포넌트
@@ -16,13 +16,13 @@ function TodoList({ isActive }) {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(__getTodos());
+    dispatch(__getTodosThunk());
   }, []);
 
   return (
     <StyledDiv>
       <StyledTodoListHeader>
-        {isActive ? "해야 할 일 ⛱" : "완료한 일 ✅"}
+        {isActive ? '해야 할 일 ⛱' : '완료한 일 ✅'}
       </StyledTodoListHeader>
       <StyledTodoListBox>
         {todos
