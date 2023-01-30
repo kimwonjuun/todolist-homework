@@ -17,7 +17,7 @@ function TodoList({ isActive }) {
 
   useEffect(() => {
     dispatch(__getTodosThunk());
-  }, []);
+  }, [todos]);
 
   return (
     <StyledDiv>
