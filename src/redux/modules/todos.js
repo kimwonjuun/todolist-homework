@@ -57,7 +57,7 @@ export const __deleteTodoThunk = createAsyncThunk(
         arg
       );
       // console.log("response", response);
-      // return thunkAPI.fulfillWithValue(response.data);
+      // return thunkAPI.fulfillWithValue(response.data); 왜 이렇게 하면 안되는지 연구하기.
       return thunkAPI.fulfillWithValue(arg);
       // return thunkAPI.fulfillWithValue(arg);
     } catch (err) {
@@ -79,7 +79,7 @@ export const __switchTodoThunk = createAsyncThunk(
         arg
       );
       // console.log("response", response);
-      // return thunkAPI.fulfillWithValue(response.data);
+      // return thunkAPI.fulfillWithValue(response.data); 왜 이렇게 하면 안되는지 연구하기.
       return thunkAPI.fulfillWithValue(arg.id);
       // return thunkAPI.fulfillWithValue(arg);
     } catch (err) {
