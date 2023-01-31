@@ -57,7 +57,8 @@ export const __deleteTodoThunk = createAsyncThunk(
         arg
       );
       // console.log("response", response);
-      return thunkAPI.fulfillWithValue(response.data);
+      // return thunkAPI.fulfillWithValue(response.data);
+      return thunkAPI.fulfillWithValue(arg);
       // return thunkAPI.fulfillWithValue(arg);
     } catch (err) {
       // 오류가 났을 때의 내용
@@ -78,7 +79,8 @@ export const __switchTodoThunk = createAsyncThunk(
         arg
       );
       // console.log("response", response);
-      return thunkAPI.fulfillWithValue(response.data);
+      // return thunkAPI.fulfillWithValue(response.data);
+      return thunkAPI.fulfillWithValue(arg.id);
       // return thunkAPI.fulfillWithValue(arg);
     } catch (err) {
       // 오류가 났을 때의 내용
@@ -131,19 +133,29 @@ const todosSlice = createSlice({
       //
     },
     [__deleteTodoThunk.fulfilled]: (state, action) => {
-      state.todos = state.todos.filter((item) => item.id !== action.payload);
+      // state.todos = state.todos.filter((item) => item.id !== action.payload);
+      const newTodos = state.todos.filter((item) => item.id !== action.payload);
+      state.todos = newTodos;
     },
     [__deleteTodoThunk.rejected]: (state, action) => {
       //
     },
     [__switchTodoThunk.fulfilled]: (state, action) => {
-      state.todos = state.todos.map((i) => {
-        if (i.id === action.payload) {
-          return { ...i, isDone: !i.isDone };
+      // state.todos = state.todos.map((i) => {
+      //   if (i.id === action.payload) {
+      //     return { ...i, isDone: !i.isDone };
+      //   } else {
+      //     return i;
+      //   }
+      // });
+      const newTodos = state.todos.map((item) => {
+        if (item.id === action.payload) {
+          return { ...item, isDone: !item.isDone };
         } else {
-          return i;
+          return item;
         }
       });
+      state.todos = newTodos;
     },
     [__switchTodoThunk.rejected]: (state, action) => {
       //
